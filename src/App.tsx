@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 // Import context and layouts
 import PageLayout from './layouts/PageLayout';
+import Home from './pages/Home';
 
 const App: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ const App: React.FC = () => {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<PageLayout />}>
-          <Route index element={<h1>Home</h1>} />
+          <Route index element={<Home/>} />
         </Route>
       </Routes>
     </Router>
