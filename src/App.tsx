@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 // Import context and layouts
 import PageLayout from './layouts/PageLayout';
 import Home from './pages/Home';
+import Monitors from './pages/Monitors';
 
 const App: React.FC = () => {
   return (
@@ -12,6 +13,10 @@ const App: React.FC = () => {
         {/* Public Routes */}
         <Route path="/" element={<PageLayout />}>
           <Route index element={<Home/>} />
+          <Route path="monitores">
+              <Route index element={<Monitors />} />
+              <Route path=":group" element={<Monitors />} />
+            </Route>
         </Route>
       </Routes>
     </Router>
