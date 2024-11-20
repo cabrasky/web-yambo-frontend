@@ -73,6 +73,9 @@ const Navbar: React.FC = () => {
                   )}
                 </ul>
               </li>
+              <li className="nav-item">
+                <Link className="nav-link" aria-current="page" to="/contacto">Contacto</Link>
+              </li>
             </ul>
           </div>
         </div>
