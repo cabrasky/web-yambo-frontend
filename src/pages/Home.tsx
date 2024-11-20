@@ -4,7 +4,7 @@ import ProjectList from '../components/ProjectList';
 const Home: React.FC = () => {
   return (
     <>
-      <h2>Proyectos</h2>
+      <h2 className='text-center'>Proyectos</h2>
       <ProjectList/>
     </>
   );

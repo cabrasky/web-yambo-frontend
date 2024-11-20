@@ -6,8 +6,7 @@ import { Outlet } from 'react-router-dom';
 const PageLayout: React.FC = () => {
 
     return (
-        <div>
-            
+        <div className="d-flex flex-column vh-100">
             <style>
                 {`
             body {
@@ -17,11 +16,10 @@ const PageLayout: React.FC = () => {
             }
           `}
             </style>
-
             <Navbar />
-            <div className="container" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
-                <Outlet/>
-            </div>
+            <main className="flex-grow-1 container my-5" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', borderBottomLeftRadius: '10px', borderBottomRightRadius: '10px' }}>
+                <Outlet />
+            </main>
             <Footer />
         </div>
     );
