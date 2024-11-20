@@ -33,7 +33,7 @@ const ProjectList: React.FC = () => {
               alt={`Logo ${project.name}`}
             />
             <div className="card-body">
-              <h5 className="card-title">{project.name}</h5>
+              <h2 className="card-title">{project.name}</h2>
               <p className="card-text">{project.description}</p>
             </div>
           </div>
