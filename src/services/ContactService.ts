@@ -7,11 +7,14 @@ class ContactService extends ApiService {
     }
 
     async sendMessage(message: ContactMessage): Promise<string> {
-        const response = await this.post<Map<string, string>>('/send', message);
-        if (response && response.get("message")) {
-            return response.get("message")!;
-        } else if (response && response.get("error")) {
-            throw new Error(response.get("error"));
+        const response = await this.post<{
+            message?: string;
+            error?: string;
+        }>('/send', message);
+        if (response && response["message"]) {
+            return response["message"];
+        } else if (response && response["error"]) {
+            throw new Error(response["error"]);
         } else {
             throw new Error('Unexpected response format.');
         }
