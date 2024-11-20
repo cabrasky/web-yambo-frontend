@@ -13,12 +13,12 @@ const ContactForm = () => {
     const [responseMessage, setResponseMessage] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
-    const [inputErrors, setInputErrors] = useState<Record<string, string>>({}); // Estado para mensajes de error por campo
+    const [inputErrors, setInputErrors] = useState<Record<string, string>>({});
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
-        setInputErrors((prev) => ({ ...prev, [name]: "" })); // Limpia el mensaje de error al editar
+        setInputErrors((prev) => ({ ...prev, [name]: "" }));
     };
 
     const validateInputs = (): boolean => {
@@ -45,6 +45,13 @@ const ContactForm = () => {
         try {
             await contactService.sendMessage(formData);
             setResponseMessage("¡Tu mensaje ha volado hasta nosotros! 🕊️✨");
+            setFormData({
+                name: "",
+                email: "",
+                subject: "",
+                message: "",
+            });
+            setInputErrors({});
         } catch (error) {
             setIsError(true);
             setResponseMessage("Ups, algo salió mal. ¿Podrías intentarlo de nuevo? 🙏");
@@ -56,11 +63,12 @@ const ContactForm = () => {
 
     return (
         <div className="container mt-5">
-            <h5 className="text-center mb-4">¿Tienes algo que decirnos? ¡Escríbenos un mail!</h5>
-            <form onSubmit={handleSubmit}>
+            <h2 className="text-center mb-4 h5">¿Tienes algo que decirnos? ¡Escríbenos un mail!</h2>
+            <form onSubmit={handleSubmit} aria-live="polite">
                 <div>
-                    <label>Nombre:</label>
+                    <label htmlFor="name">Nombre:</label>
                     <input
+                        id="name"
                         className="form-control mb-1"
                         type="text"
                         name="name"
@@ -68,12 +76,15 @@ const ContactForm = () => {
                         onChange={handleChange}
                         placeholder="¿Cómo te llamas? 😄"
                         required
+                        aria-describedby={inputErrors.name ? "nameError" : undefined}
+                        aria-invalid={!!inputErrors.name}
                     />
-                    {inputErrors.name && <small className="text-danger">{inputErrors.name}</small>}
+                    {inputErrors.name && <small id="nameError" className="text-danger">{inputErrors.name}</small>}
                 </div>
                 <div>
-                    <label>Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <input
+                        id="email"
                         className="form-control mb-1"
                         type="email"
                         name="email"
@@ -81,12 +92,15 @@ const ContactForm = () => {
                         onChange={handleChange}
                         placeholder="¿Dónde te escribimos? 📧"
                         required
+                        aria-describedby={inputErrors.email ? "emailError" : undefined}
+                        aria-invalid={!!inputErrors.email}
                     />
-                    {inputErrors.email && <small className="text-danger">{inputErrors.email}</small>}
+                    {inputErrors.email && <small id="emailError" className="text-danger">{inputErrors.email}</small>}
                 </div>
                 <div>
-                    <label>Asunto:</label>
+                    <label htmlFor="subject">Asunto:</label>
                     <input
+                        id="subject"
                         className="form-control mb-1"
                         type="text"
                         name="subject"
@@ -94,27 +108,32 @@ const ContactForm = () => {
                         onChange={handleChange}
                         placeholder="¿De qué se trata? 🤔"
                         required
+                        aria-describedby={inputErrors.subject ? "subjectError" : undefined}
+                        aria-invalid={!!inputErrors.subject}
                     />
-                    {inputErrors.subject && <small className="text-danger">{inputErrors.subject}</small>}
+                    {inputErrors.subject && <small id="subjectError" className="text-danger">{inputErrors.subject}</small>}
                 </div>
                 <div>
-                    <label>Mensaje:</label>
+                    <label htmlFor="message">Mensaje:</label>
                     <textarea
+                        id="message"
                         className="form-control mb-1"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
                         placeholder="¡Cuéntanos todo! 😊"
                         required
+                        aria-describedby={inputErrors.message ? "messageError" : undefined}
+                        aria-invalid={!!inputErrors.message}
                     ></textarea>
-                    {inputErrors.message && <small className="text-danger">{inputErrors.message}</small>}
+                    {inputErrors.message && <small id="messageError" className="text-danger">{inputErrors.message}</small>}
                 </div>
-                <button type="submit" disabled={isLoading} className="btn btn-primary mt-3">
+                <button type="submit" disabled={isLoading} className="btn btn-primary mt-3" aria-live="assertive">
                     {isLoading ? "Enviando..." : "Enviar"}
                 </button>
             </form>
             {responseMessage && (
-                <p className={`mt-3 text-center ${isError ? "text-danger" : "text-success"}`}>
+                <p className={`mt-3 text-center ${isError ? "text-danger" : "text-success"}`} aria-live="polite">
                     {responseMessage}
                 </p>
             )}

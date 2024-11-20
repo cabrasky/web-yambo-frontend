@@ -6,7 +6,7 @@ const Monitors: React.FC = () => {
 
   return (
     <>
-      <h2 className='text-center'>Monitores{group ? ` de ${group}` : ""}</h2>
+      <h1 className='text-center'>Monitores{group ? ` de ${group}` : ""}</h1>
       <MonitorList group={group} />
     </>
   );

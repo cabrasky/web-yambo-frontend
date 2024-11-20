@@ -46,12 +46,12 @@ const MonitorList: React.FC<props> = ({group}) => {
             <div className='card' style={{ margin: "2rem 0px" }}>
               <img src={monitor.image} alt={`Monitor ${monitor.name}`} className="card-img" style={{objectFit: "cover",  objectPosition: "50% 50%", width:"100%", height:"400px"}}/>
               <div className="card-body">
-                <h3 className="card-title text-center">{monitor.name}</h3>
-                <h6 className="grupos card-subtitle text-center">
+                <h2 className="card-title text-center">{monitor.name}</h2>
+                <h3 className="grupos card-subtitle text-center h5">
                   {monitor.groups.map(group => (
                     <a href={`/monitores/${group.name}/`} style={{ margin: "0px 20px" }} >{group.name}</a>
                   ))}
-                </h6>
+                </h3>
                 <p className="card-text">{monitor.description}</p>
               </div>
             </div>
